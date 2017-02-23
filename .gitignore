@@ -1,0 +1,4 @@
+.env
+node_modules/
+scripts.js
+im-34700-firebase-adminsdk.json
