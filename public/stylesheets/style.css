@@ -1,0 +1,207 @@
+@import url(https://fonts.googleapis.com/css?family=Oswald|Lora:400,700,400italic|Roboto:100|Poiret+One);
+body {
+    font-family: "Lora", serif;
+    font-weight: 400;
+    font-size: 14px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: "Oswald", sans-serif;
+    font-weight: 400;
+}
+
+a {
+    color: #fff;
+}
+
+.navbar {
+    border-radius: 0;
+    padding: 20px;
+    background: rgba(0, 0, 0, .5);
+}
+
+.navbar-brand {
+    font-family: 'Oswald';
+    background-size: cover;
+    font-size: 30px;
+}
+
+.navbar-inverse .navbar-nav>li>a,
+.navbar-inverse .navbar-brand {
+    padding: 20px;
+}
+
+.navbar-toggle .icon-bar {
+    border: 2px solid #fff;
+}
+
+.top-div {
+    margin-top: 150px;
+}
+
+.contain-fluid.I-Manager-cover {
+    /*background: url('/images/I-Manager-cover.jpg');*/
+    z-index: 99999999;
+    position: absolute;
+    position: absolute;
+    top: 30%;
+    left: 15%;
+    width: 70%;
+    height: 100px;
+}
+
+.container-fluid p {
+    text-align: center;
+    line-height: 100vh;
+}
+
+p.I-Manager-cover-header {
+    background: rgba(0, 0, 0, .9);
+    padding: 10px;
+    font-size: 35px;
+    text-align: center;
+    font-family: 'Poiret One', cursive;
+    margin-top: 100px;
+    z-index: 999999999999999;
+}
+
+.form-group input[type="checkbox"] {
+    display: none;
+}
+
+.form-group input[type="checkbox"]+.btn-group>label span {
+    width: 20px;
+}
+
+.form-group input[type="checkbox"]+.btn-group>label span:first-child {
+    display: none;
+}
+
+.form-group input[type="checkbox"]+.btn-group>label span:last-child {
+    display: inline-block;
+}
+
+.form-group input[type="checkbox"]:checked+.btn-group>label span:first-child {
+    display: inline-block;
+}
+
+.form-group input[type="checkbox"]:checked+.btn-group>label span:last-child {
+    display: none;
+}
+
+div.asset-section {
+    margin-top: 10px;
+}
+
+div.each-asset {
+    background: rgba(255, 255, 255, 1);
+    padding: 5px;
+    box-shadow: 1px 1px 1px solid #eee;
+    margin: 10px;
+    color: #111;
+}
+
+div.each-asset a {
+    color: #399;
+}
+
+.side-bar {
+    height: 250px;
+    background: #fff;
+    color: #111;
+}
+
+right-side-bar {
+    padding: 5px;
+}
+
+p#result a {
+    color: #39F;
+}
+
+#each-asset {
+    font-size: 14px;
+    padding: 5px;
+    text-align: justify;
+    margin: 3px 5px;
+    border-bottom: 1px solid #999;
+}
+
+#each-asset input {
+    float: right;
+    padding: 20px;
+}
+
+#date {
+    background: rgba(0, 0, 0, .5);
+    margin: 5px 0;
+    width: 100%;
+}
+
+#date-selector {
+    line-height: 39px;
+    line-height: 1.42857143 \0;
+    line-height: 12px;
+    display: inline-block;
+    padding: 3px;
+    margin: 5px 4px;
+}
+
+.fa-bell {
+    color: #fff;
+    font-size: 20px !important;
+}
+
+.homepage-hero-module {
+    border-right: none;
+    border-left: none;
+    position: relative;
+}
+
+.no-video .video-container video,
+.touch .video-container video {
+    display: none;
+}
+
+.no-video .video-container .poster,
+.touch .video-container .poster {
+    display: block !important;
+}
+
+.video-container {
+    position: relative;
+    bottom: 0%;
+    left: 0%;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    background: #000;
+}
+
+.video-container .poster img {
+    width: 100%;
+    bottom: 0;
+    position: absolute;
+}
+
+.video-container .filter {
+    z-index: 100;
+    position: absolute;
+    background: rgba(0, 0, 0, 0.4);
+    width: 100%;
+}
+
+.video-container video {
+    position: absolute;
+    z-index: 0;
+    bottom: 0;
+}
+
+.video-container video.fillWidth {
+    width: 100%;
+}
