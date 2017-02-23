@@ -1,0 +1,50 @@
+extends layout
+include mixins/mixins
+
+block body
+  +nav('I-Manager', 'dropdown_menu', '')
+    +nav_item( '/', 'active' ) Home
+    +nav_item( 'login' ) Login	
+    +nav_item( 'register') Register	
+    +nav_item( 'register-admin') Register admin	
+    +nav_item_dropdown( '#' )( label='User' )
+      +nav_item( 'index' ) Link 2
+      +nav_divider
+      +nav_item( 'index' ) Link 5
+      +nav_header Nav header
+      +nav_item( '#' ) Link
+  .container.top-div
+    div.row
+      div.col-md-3
+        aside.side-bar.affix(data-spy='affix', data-offset-top='100')
+          p#status
+      div.col-md-9
+        h1= title
+        div.asset-section
+          each asset in assets
+            div.col-md-4.each-asset
+              p= 'Asset name: '+ asset[0]
+              p= 'Asset description: '+ asset[1]
+              p= 'Date bought: '+ asset[2]
+              p= 'Andela Serial Code: '+ asset[3]
+              form(role='form', action='/users/assign-user', method='post')
+                input.form-control(id='keyword', type='text', placeholder='Enter a username')
+                input.form-control(type='hidden', name='serialCode', value=asset[3])
+                button.btn.btn-md.btn-success(type='Submit') Assign asset
+block footer
+  script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js')
+  script.
+    $(document).ready(function() {
+      var boxId = $(this).attr('id');
+      $('#keyword').on('input', function() {
+        var searchKeyword = $(this).val();
+          if (searchKeyword.length >= 5) {
+            $.post('/users', { keywords: searchKeyword }, function(data) {
+              $.each(data, function() {
+                $('p#result').html('<a href="#">' + this + '</a>');
+            });
+            }, 'json');
+          }
+      });
+    });
+    

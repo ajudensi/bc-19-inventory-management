@@ -1,0 +1,89 @@
+extends layout
+include mixins/mixins
+
+block body
+  +nav('I-Manager', 'dropdown_menu', '')
+    +nav_item( '/', 'active' ) Home	
+    +nav_item_dropdown( '#' )( label='User' )
+      if status == 'super'
+        +nav_item( 'register-admin') Register admin
+        +nav_item( '/assets/add-assets' ) Add assets
+        +nav_item( '/assets' ) Available assets
+        +nav_item( '/assets/assigned' ) Assigned assets
+        +nav_item( '/assets/found' ) Lost but found
+      if isLoggedIn
+        +nav_item( '/report' ) Report lost item
+        +nav_item( '/found' ) Report found item
+        +nav_item( '/logout' ) Logout
+      else
+        +nav_item( '/login' ) Login	
+        +nav_item( '/register') Register	
+      +nav_header Nav header
+    +nav_item( '/notifications' )
+      i.fa.fa-bell(aria-hidden='true')
+  .contain-fluid.I-Manager-cover 
+    p.I-Manager-cover-header Manage your assets seamlessly...
+    p= 'Welcome '+ status
+  .homepage-hero-module
+    .video-container
+      .filter
+      video.fillWidth(autoplay='', loop='')
+        source(src='/images/Spaciouss.mp4', type='video/mp4')
+        | Your browser does not support the video tag. I suggest you upgrade your browser.
+  .container
+    div.row
+      div.col-md-12
+        h1= title
+        if isLoggedIn
+         a(href='/logout') Logout
+block footer
+  script.
+    //jQuery is required to run this code
+    $( document ).ready(function() {
+        scaleVideoContainer();
+        initBannerVideoSize('.video-container .poster img');
+        initBannerVideoSize('.video-container .filter');
+        initBannerVideoSize('.video-container video');
+        $(window).on('resize', function() {
+            scaleVideoContainer();
+            scaleBannerVideoSize('.video-container .poster img');
+            scaleBannerVideoSize('.video-container .filter');
+            scaleBannerVideoSize('.video-container video');
+        });
+    });
+
+    function scaleVideoContainer() {
+      var height = $(window).height() + 5;
+      var unitHeight = parseInt(height) + 'px';
+      $('.homepage-hero-module').css('height',unitHeight);
+    }
+
+    function initBannerVideoSize(element){
+        $(element).each(function(){
+            $(this).data('height', $(this).height());
+            $(this).data('width', $(this).width());
+        });
+        scaleBannerVideoSize(element);
+    }
+
+    function scaleBannerVideoSize(element){
+        var windowWidth = $(window).width(),
+        windowHeight = $(window).height() + 5,
+        videoWidth,
+        videoHeight;
+        $(element).each(function(){
+            var videoAspectRatio = $(this).data('height')/$(this).data('width');
+
+            $(this).width(windowWidth);
+
+            if(windowWidth < 1000){
+                videoHeight = windowHeight;
+                videoWidth = videoHeight / videoAspectRatio;
+                $(this).css({'margin-top' : 0, 'margin-left' : -(videoWidth - windowWidth) / 2 + 'px'});
+
+                $(this).width(videoWidth).height(videoHeight);
+            }
+
+            $('.homepage-hero-module .video-container video').addClass('fadeIn animated');
+        });
+    }

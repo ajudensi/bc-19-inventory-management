@@ -1,0 +1,69 @@
+extends layout
+include mixins/mixins
+
+block body
+  +nav('I-Manager', 'dropdown_menu', '')
+    +nav_item( '/', 'active' ) Home	
+    +nav_item_dropdown( '#' )( label='User' )
+      if status == 'super'
+        +nav_item( 'register-admin') Register admin
+        +nav_item( '/assets/add-assets' ) Add assets
+        +nav_item( '/assets' ) Available assets
+        +nav_item( '/assets/assigned' ) Assigned assets
+        +nav_item( '/assets/found' ) Lost but found
+      if isLoggedIn
+        +nav_item( '/report' ) Report lost item
+        +nav_item( '/found' ) Report found item
+        +nav_item( '/logout' ) Logout
+      else
+        +nav_item( '/login' ) Login	
+        +nav_item( '/register') Register	
+      +nav_header Nav header
+    +nav_item( '/notifications' )
+      i.fa.fa-bell(aria-hidden='true')
+  .container.top-div
+    .row
+      p.text-center #{status}
+      div.col-md-offset-2.col-md-8
+        h3.text-center Add a new admin details
+        .row
+          .col-md-12
+            form.loginForm(action='/register-admin', autocomplete='off', method='POST')
+              .input-group
+                span.input-group-addon
+                  i.fa.fa-user
+                input.form-control(type='text', name='username', placeholder='Enter user name')
+              span.help-block.text-danger Username error
+              .input-group
+                span.input-group-addon
+                  i.fa.fa-user
+                input.form-control(type='text', name='email', placeholder='Email')
+              span.help-block.text-danger email error
+              .input-group
+                span.input-group-addon
+                  i.fa.fa-lock
+                input.form-control(type='password', name='password', placeholder='Password')
+              span.help-block.text-danger Password error
+              .col-md-4
+                button.btn.btn-lg.btn-primary.btn-block(type='submit') Login
+        .row
+          .col-md-6
+            br
+            .form-group
+              input#remember-me(type='checkbox', name='remember-me', autocomplete='off')
+              .btn-group
+                label.btn.btn-success(for='remember-me')
+                  span.glyphicon.glyphicon-plus
+                  span.glyphicon.glyphicon-minus
+                label.btn.btn-default.active(for='remember-me')
+                  | Remember me
+          .col-md-6
+            br
+            br
+            .form-group
+              p.forgotPassword
+                a(href='#') Forgot password?
+
+
+block footer
+  script.

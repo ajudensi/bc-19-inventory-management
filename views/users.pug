@@ -1,0 +1,40 @@
+extends layout
+include mixins/mixins
+
+block body
+  +nav('I-Manager', 'dropdown_menu', '')
+    +nav_item( '/', 'active' ) Home	
+    +nav_item_dropdown( '#' )( label='User' )
+      if status == 'super'
+        +nav_item( 'register-admin') Register admin
+        +nav_item( '/assets/add-assets' ) Add assets
+        +nav_item( '/assets' ) Available assets
+        +nav_item( '/assets/assigned' ) Assigned assets
+        +nav_item( '/assets/found' ) Lost but found
+      if isLoggedIn
+        +nav_item( '/report' ) Report lost item
+        +nav_item( '/found' ) Report found item
+        +nav_item( '/logout' ) Logout
+      else
+        +nav_item( '/login' ) Login	
+        +nav_item( '/register') Register	
+      +nav_header Nav header
+    +nav_item( '/notifications' )
+      i.fa.fa-bell(aria-hidden='true')
+  .container.top-div
+    div.row
+      div.col-md-3
+        aside.side-bar.affix(data-spy='affix', data-offset-top='100')
+          p#result
+      div.col-md-9
+        h1= title
+        div.asset-section
+          each user in usersData
+            div.col-md-4.each-asset
+              a(href='/users/'+ user[3])
+                p= user[0]
+              p= 'Email: '+ user[1]
+              p= 'Role: '+ user[2]
+              p= 'UID: '+ user[3]
+block footer
+    

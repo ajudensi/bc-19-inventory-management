@@ -1,0 +1,88 @@
+extends layout
+include mixins/mixins
+
+block body
+  +nav('I-Manager', 'dropdown_menu', '')
+    +nav_item( '/', 'active' ) Home	
+    +nav_item_dropdown( '#' )( label='User' )
+      if status == 'super'
+        +nav_item( 'register-admin') Register admin
+        +nav_item( '/assets/add-assets' ) Add assets
+        +nav_item( '/assets' ) Available assets
+        +nav_item( '/assets/assigned' ) Assigned assets
+        +nav_item( '/assets/found' ) Lost but found
+      if isLoggedIn
+        +nav_item( '/report' ) Report lost item
+        +nav_item( '/found' ) Report found item
+        +nav_item( '/logout' ) Logout
+      else
+        +nav_item( '/login' ) Login	
+        +nav_item( '/register') Register	
+      +nav_header Nav header
+    +nav_item( '/notifications' )
+      i.fa.fa-bell(aria-hidden='true')
+  .container.top-div
+    div.row
+      div.col-md-3
+        h2() Available items
+        if assets.length < 1
+          p= 'No item available now \nCheck back later '+ userInfo.username
+          div.col.md-12(style={display: 'none'})
+        else
+          aside.side-bar.affix(data-spy='affix', data-offset-top='100')
+            form(role='form', action='/users/assign-user', method='post')
+              input(type='hidden', name='uid', value=userInfo.uid)
+              input(type='hidden', name='username', value=userInfo.username)
+              div.assetCheck
+                each asset in assets
+                  p#each-asset= asset[0]
+                    input.checkbox-inline(type='checkbox', name='assetCheck', value=asset[3])
+                .input-group#date
+                  label() Return date
+                    input.form-contro.date#date-selector(type='date', required name='date')
+              button.btn.btn-md.btn-block.btn-success(type='submit', id='asset-button') Assign asset
+      
+      div.col-md-6
+        h1= title
+        div.asset-section
+          div.col-md-12.each-asset
+            a(href='/users/'+ userInfo.uid)
+              p= userInfo.username
+            p= 'Email: '+ userInfo.email
+            p= 'Role: '+ userInfo.role
+            p= 'UID: '+ userInfo.uid
+
+      div.col-md-3
+        h2() Currently assigned
+        h4= assigned.length
+        if assigned.length < 1
+          p= 'No item is assigned to '+ userInfo.username
+          div.col.md-12(style={display: 'none'})
+        else
+          aside.right-side-bar.affix(data-spy='affix', data-offset-top='100')
+            form(role='form', action='/users/unassign-user', method='post')
+              input(type='hidden', name='uid', value=assigned[0][4])
+              div.assetAssigned
+                each asset in assigned
+                  p#each-asset= asset[0]
+                    input.checkbox-inline(type='checkbox', name='assetCheck', value=asset[3])
+              button.btn.btn-md.btn-block.btn-success(type='submit', id='asset-button') Unassign asset
+block footer
+    script.
+      //- document.getElementById('asset-button').addEventListener('click', getCheckedBoxes);
+      $('.assetCheck input:checkbox').click(function(){
+          var $inputs = $('.assetCheck input:checkbox'); 
+          if($(this).is(':checked')){  // <-- check if clicked box is currently checked
+            $inputs.not(this).prop('disabled',true); // <-- disable all but checked checkbox
+          }else{  //<-- if checkbox was unchecked
+            $inputs.prop('disabled',false); // <-- enable all checkboxes
+          }
+      })
+      $('.assetAssigned input:checkbox').click(function(){
+        var $inputs = $('.assetAssigned input:checkbox'); 
+        if($(this).is(':checked')){  // <-- check if clicked box is currently checked
+          $inputs.not(this).prop('disabled',true); // <-- disable all but checked checkbox
+        }else{  //<-- if checkbox was unchecked
+          $inputs.prop('disabled',false); // <-- enable all checkboxes
+        }
+      })

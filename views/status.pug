@@ -1,0 +1,23 @@
+extends layout
+include mixins/mixins
+
+block body
+  +nav('I-Manager', 'dropdown_menu', '')
+    +nav_item( '/', 'active' ) Home
+    +nav_item( 'login' ) Login	
+    +nav_item( 'register') Register	
+    +nav_item( 'register-admin') Register admin	
+    +nav_item_dropdown( '#' )( label='User' )
+      +nav_item( 'index' ) Link 2
+      +nav_divider
+      +nav_item( 'index' ) Link 5
+      +nav_header Nav header
+      +nav_item( '#' ) Link
+  .container.top-div
+    div.row
+      div.col-md-3
+        aside.side-bar.affix(data-spy='affix', data-offset-top='100')
+      div.col-md-9
+        h1= status
+block footer
+    

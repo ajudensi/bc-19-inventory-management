@@ -1,0 +1,57 @@
+extends layout
+include mixins/mixins
+
+block body
+  +nav('I-Manager', 'dropdown_menu', 'inverse')
+    +nav_item( '/' ) Home
+    +nav_item( 'login', 'active') Login	
+    +nav_item( 'register') Register
+    +nav_item( 'register-admin') Register admin	
+    +nav_item_dropdown( '#' )( label='Dropdown' )
+      +nav_item( 'index' ) Link 2
+      +nav_divider
+      +nav_item( 'index' ) Link 5
+      +nav_header Nav header
+      +nav_item( 'index' ) Link 7
+  .container.top-div
+    .row
+      p.text-center #{status}
+      div.col-md-offset-2.col-md-8
+        h3.text-center Login or 
+          a(href='/register') Register
+        .row
+          .col-md-12
+            form.loginForm(action='/login', autocomplete='off', method='POST')
+              .input-group
+                span.input-group-addon
+                  i.fa.fa-user
+                input.form-control(type='text', name='email', placeholder='Email')
+              span.help-block.text-danger Username error
+              .input-group
+                span.input-group-addon
+                  i.fa.fa-lock
+                input.form-control(type='password', name='password', placeholder='Password')
+              span.help-block.text-danger Password error
+              .col-md-4
+                button.btn.btn-lg.btn-primary.btn-block(type='submit') Login
+        .row
+          .col-md-6
+            br
+            .form-group
+              input#remember-me(type='checkbox', name='remember-me', autocomplete='off')
+              .btn-group
+                label.btn.btn-success(for='remember-me')
+                  span.glyphicon.glyphicon-plus
+                  span.glyphicon.glyphicon-minus
+                label.btn.btn-default.active(for='remember-me')
+                  | Remember me
+          .col-md-6
+            br
+            br
+            .form-group
+              p.forgotPassword
+                a(href='#') Forgot password?
+
+
+block footer
+  script.
