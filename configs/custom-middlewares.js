@@ -5,7 +5,7 @@ function isAuthenticated(req, res, next) {
   if (req.session.role && req.session.email && req.session.password) {
     return next();
   }
-  res.redirect('/');
+  res.redirect('/login');
 }
 
 function isNotAdminOrSuper(req, res, next) {
