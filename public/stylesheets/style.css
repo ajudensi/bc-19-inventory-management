@@ -2,7 +2,7 @@
 body {
     font-family: "Lora", serif;
     font-weight: 400;
-    font-size: 14px;
+    font-size: 16px;
 }
 
 h1,
@@ -18,7 +18,9 @@ h6 {
 a {
     color: #fff;
 }
-
+.navbar-nav>li>a {
+    font-size: 14px
+}
 .navbar {
     border-radius: 0;
     padding: 20px;
@@ -45,7 +47,6 @@ a {
 }
 
 .contain-fluid.I-Manager-cover {
-    /*background: url('/images/I-Manager-cover.jpg');*/
     z-index: 99999999;
     position: absolute;
     position: absolute;
@@ -67,7 +68,6 @@ p.I-Manager-cover-header {
     text-align: center;
     font-family: 'Poiret One', cursive;
     margin-top: 100px;
-    /*z-index: 999999999999999;*/
 }
 #I-Manager-Button {
     padding: 10px;
