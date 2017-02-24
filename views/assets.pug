@@ -3,34 +3,36 @@ include mixins/mixins
 
 block body
   +nav('I-Manager', 'dropdown_menu', '')
-    +nav_item( '/', 'active' ) Home
-    +nav_item( 'login' ) Login	
-    +nav_item( 'register') Register	
-    +nav_item( 'register-admin') Register admin	
+    +nav_item( '/', 'active' ) Home	
     +nav_item_dropdown( '#' )( label='User' )
-      +nav_item( 'index' ) Link 2
-      +nav_divider
-      +nav_item( 'index' ) Link 5
+      if status == 'super'
+        +nav_item( 'register-admin') Register admin
+        +nav_item( '/assets/add-assets' ) Add assets
+        +nav_item( '/assets' ) Available assets
+        +nav_item( '/assets/assigned' ) Assigned assets
+        +nav_item( '/assets/found' ) Lost but found
+      if isLoggedIn
+        +nav_item( '/assets' ) Available assets
+        +nav_item( '/assets/assigned' ) Assigned assets
+        +nav_item( '/logout' ) Logout
+      else
+        +nav_item( '/login' ) Login	
+        +nav_item( '/register') Register	
       +nav_header Nav header
-      +nav_item( '#' ) Link
+    +nav_item( '/notifications' )
+      i.fa.fa-bell(aria-hidden='true')
   .container.top-div
     div.row
-      div.col-md-3
-        aside.side-bar.affix(data-spy='affix', data-offset-top='100')
-          p#status
-      div.col-md-9
+      div.col-md-offset-2.col-md-8
         h1= title
         div.asset-section
           each asset in assets
             div.col-md-4.each-asset
-              p= 'Asset name: '+ asset[0]
+              h5= 'Asset name: '+ asset[0]
               p= 'Asset description: '+ asset[1]
               p= 'Date bought: '+ asset[2]
               p= 'Andela Serial Code: '+ asset[3]
-              form(role='form', action='/users/assign-user', method='post')
-                input.form-control(id='keyword', type='text', placeholder='Enter a username')
-                input.form-control(type='hidden', name='serialCode', value=asset[3])
-                button.btn.btn-md.btn-success(type='Submit') Assign asset
+              a.btn.btn-sm.btn-default(href='#', type='Submit') Assign asset
 block footer
   script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js')
   script.

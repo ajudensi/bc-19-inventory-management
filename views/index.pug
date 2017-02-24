@@ -12,8 +12,8 @@ block body
         +nav_item( '/assets/assigned' ) Assigned assets
         +nav_item( '/assets/found' ) Lost but found
       if isLoggedIn
-        +nav_item( '/report' ) Report lost item
-        +nav_item( '/found' ) Report found item
+        +nav_item( '/assets' ) Available assets
+        +nav_item( '/assets/assigned' ) Assigned assets
         +nav_item( '/logout' ) Logout
       else
         +nav_item( '/login' ) Login	
@@ -23,7 +23,13 @@ block body
       i.fa.fa-bell(aria-hidden='true')
   .contain-fluid.I-Manager-cover 
     p.I-Manager-cover-header Manage your assets seamlessly...
-    p= 'Welcome '+ status
+    if !isLoggedIn
+      .col-md-6
+        a.btn.btn-block.btn-default#I-Manager-Button(href='/login') Login
+      .col-md-6
+        a.btn.btn-block.btn-default#I-Manager-Button(href='/register') Register
+    else
+      a.btn.btn-block.btn-default#I-Manager-Button(href='/logout') Logout
   .homepage-hero-module
     .video-container
       .filter
@@ -32,11 +38,14 @@ block body
         | Your browser does not support the video tag. I suggest you upgrade your browser.
   .container
     div.row
-      div.col-md-12
-        h1= title
+      div.col-md-12#footer
+        p= title
+          span.pull-right Andela 2017
         if isLoggedIn
          a(href='/logout') Logout
+        
 block footer
+
   script.
     //jQuery is required to run this code
     $( document ).ready(function() {

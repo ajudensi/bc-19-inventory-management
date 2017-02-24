@@ -23,10 +23,7 @@ block body
       i.fa.fa-bell(aria-hidden='true')
   .container.top-div
     div.row
-      div.col-md-3
-        aside.side-bar.affix(data-spy='affix', data-offset-top='100')
-          p#result
-      div.col-md-9
+      div.col-md-offset-3.col-md-9
         h1= title
         div.asset-section
           each asset in allItems

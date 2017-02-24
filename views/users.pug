@@ -22,19 +22,17 @@ block body
     +nav_item( '/notifications' )
       i.fa.fa-bell(aria-hidden='true')
   .container.top-div
-    div.row
-      div.col-md-3
-        aside.side-bar.affix(data-spy='affix', data-offset-top='100')
-          p#result
-      div.col-md-9
-        h1= title
-        div.asset-section
-          each user in usersData
-            div.col-md-4.each-asset
+    .row
+      h1= title
+      p= status
+      .col-md-12.user-section
+        each user in usersData
+          div.col-md-4.each-user
+            h5
               a(href='/users/'+ user[3])
                 p= user[0]
-              p= 'Email: '+ user[1]
-              p= 'Role: '+ user[2]
-              p= 'UID: '+ user[3]
+            p= 'Email: '+ user[1]
+            p= 'Role: '+ user[2]
+            p= 'UID: '+ user[3]
 block footer
     

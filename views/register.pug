@@ -25,7 +25,7 @@ block body
   div.container.top-div
     div.row
       p.text-center #{status}
-      div.col-md-offset-2.col-md-8
+      div.col-md-offset-3.col-md-6#div-form
         h3.text-center Register  or 
           a(href='/login') Login
         .row
@@ -34,14 +34,19 @@ block body
               .input-group
                 span.input-group-addon
                   i.fa.fa-user
-                input.form-control(type='text', name='email', placeholder='Email')
-              span.help-block.text-danger Username error
+                input.form-control(type='text', name='username', placeholder='Username')
+              span.help-block.text-danger
+              .input-group
+                span.input-group-addon
+                  i.fa.fa-envelope
+                input.form-control(type='email', name='email', placeholder='Email')
+              span.help-block.text-danger
               .input-group
                 span.input-group-addon
                   i.fa.fa-lock
                 input.form-control(type='password', name='password', placeholder='Password')
-              span.help-block.text-danger Password error
-              .col-md-4
+              span.help-block.text-danger
+              .col-md-12
                 button.btn.btn-lg.btn-primary.btn-block(type='submit') Register
 
 
