@@ -16,8 +16,8 @@ const fireAssetsRef = fireApp.database().ref('assets');
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: process.env.GMAIL_PASSWORD,
-    pass: process.env.GMAIL_ADDRR,
+    user: process.env.GMAIL_ADDRR,
+    pass: process.env.GMAIL_PASSWORD,
   },
 });
 
