@@ -11,7 +11,7 @@ This app should be able to keep inventory of Andela’s assets, mainly electroni
 [Inventory management](http://www.investopedia.com/terms/i/inventory-management.asp#ixzz4ZaIpXMFu) is the practice overseeing and controlling of the ordering, storage and use of components that a company uses in the production of the items it sells. Inventory management is also the practice of overseeing and controlling of quantities of finished products for sale. A business's inventory is one of its major assets and represents an investment that is tied up until the item sell
 
 ### I-Manager ONLINE
-[https://bc-19-inventory-manager.herokuapp.com/](https://bc-19-inventory-manager.herokuapp.com/)
+[https://vast-ravine-74143.herokuapp.com/](https://vast-ravine-74143.herokuapp.com/)
 
 ### How I-Manager works
 A super admin regulates access and use of this application.
