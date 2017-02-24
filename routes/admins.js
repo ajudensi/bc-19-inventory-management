@@ -1,11 +1,12 @@
 require('dotenv').config();
 const express = require('express');
-const [fireApp, fireUserRef] = require('../configs/firebaseconfigs.js');
+const [fireApp, fireUserRef, , iManagerMailer] = require('../configs/firebaseconfigs.js');
+const [isAuthenticated, isNotAdminOrSuper, isNotSuper] = require('../configs/custom-middlewares.js');
 
 const fireAuth = fireApp.auth();
 const router = express.Router();
 
-router.get('/', (req, res) => {
+router.get('/', isNotSuper, (req, res) => {
   if (!(req.session) || (req.session.role !== 'super')) {
     res.redirect('/');
   } else {
@@ -28,6 +29,7 @@ router.post('/', (req, res) => {
       addedBy: req.session.email,
     }).then(() => {
       user.sendEmailVerification().then(() => {
+        iManagerMailer('I-Manager', 'support@i-manager.com', 'New account registration', `A new account on I-Manager has been opened with this email. Your password is ${password}, and username ${username}`);
         res.render('register-admin', {
           title: 'Register a new Admin',
           status: 'User created as admin and password verification sent',

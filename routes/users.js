@@ -1,12 +1,13 @@
 require('dotenv').config();
 const express = require('express');
-const [fireApp, fireUserRef, fireAssetsRef] = require('../configs/firebaseconfigs.js');
+const [fireApp, fireUserRef, fireAssetsRef, iManagerMailer] = require('../configs/firebaseconfigs.js');
+const [isAuthenticated, isNotAdminOrSuper, isNotSuper] = require('../configs/custom-middlewares.js');
 
 const router = express.Router();
 
 const fireAuth = fireApp.auth();
 
-router.get('/:uid', (req, res) => {
+router.get('/:uid', isAuthenticated, (req, res) => {
   const uid = req.params.uid;
   fireApp.auth().signInWithEmailAndPassword(req.session.email, req.session.password).then((user) => {
     fireUserRef.child(uid).on('value', (snapshot) => {
@@ -49,15 +50,15 @@ router.get('/:uid', (req, res) => {
           });
         });
       });
-    }, (error) => {
+    }, () => {
       res.redirect(`/users/${uid}`);
     });
-  }).catch((error) => {
+  }).catch(() => {
     res.redirect(`/users/${uid}`);
   });
 });
 
-router.get('/', (req, res) => {
+router.get('/', isAuthenticated, (req, res) => {
   fireApp.auth().signInWithEmailAndPassword(req.session.email, req.session.password).then(() => {
     fireUserRef.on('value', (snapshot) => {
       const allUsers = [];
@@ -80,21 +81,7 @@ router.get('/', (req, res) => {
   });
 });
 
-
-router.post('/', (req, res) => {
-  fireApp.auth().signInWithEmailAndPassword(req.session.email, req.session.password).then((user) => {
-    const keyword = req.body.keywords;
-    keyword.toLowerCase();
-    const patternedKey = new RegExp(keyword);
-    fireUserRef.orderByChild('username').on('child_added', (snapshot) => {
-      if (patternedKey.test(snapshot.val().username.toLowerCase())) {
-        res.send(JSON.stringify({ username: snapshot.val().username }, null, 3));
-      }
-    });
-  });
-});
-
-router.post('/assign-user', (req, res) => {
+router.post('/assign-user', isNotAdminOrSuper, (req, res) => {
   const data = req.body;
   fireApp.auth().signInWithEmailAndPassword(req.session.email, req.session.password).then((user) => {
     const assetId = data.assetCheck;
@@ -111,6 +98,7 @@ router.post('/assign-user', (req, res) => {
           }, (error) => {
             if (!error) {
               fireAssetsRef.child(assetId).remove();
+              iManagerMailer('I-Manager', 'support@i-manager.com', 'Assigned item', `An item with ID ${assetId} has been assigned to you. Login to see details`);
               res.redirect(`/users/${uid}`);
             }
           });
@@ -120,7 +108,7 @@ router.post('/assign-user', (req, res) => {
   });
 });
 
-router.post('/unassign-user', (req, res) => {
+router.post('/unassign-user', isNotAdminOrSuper, (req, res) => {
   fireApp.auth().signInWithEmailAndPassword(req.session.email, req.session.password).then((user) => {
     const data = req.body;
     const assetId = data.assetCheck;
@@ -129,6 +117,7 @@ router.post('/unassign-user', (req, res) => {
       fireAssetsRef.child(`${assetId}`).set(snapshot.val(), (error) => {
         if (!error) {
           fireUserRef.child(`${uid}`).child('assignedItems').child(`${assetId}`).remove();
+          iManagerMailer('I-Manager', 'support@i-manager.com', 'Unassigned item', `An item with ID ${assetId} has been unassigned from you. Login to see details`);
           res.redirect(`/users/${uid}`);
         }
       });

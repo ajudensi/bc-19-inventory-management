@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
-const [fireApp, fireUserRef] = require('../configs/firebaseconfigs.js');
+const [fireApp, fireUserRef, , iManagerMailer] = require('../configs/firebaseconfigs.js');
+const isAuthenticated = require('../configs/custom-middlewares.js');
 
 const router = express.Router();
 
@@ -43,7 +44,14 @@ router.post('/login', (req, res) => {
       sess = req.session;
       sess.role = snapshot.val().role;
       sess.email = user.email;
-      sess.password = user.password;
+      sess.password = reqData.password;
+      const today = new Date();
+      const d = today.getDate();
+      const m = today.getMonth()+1;
+      const y = today.getFullYear();
+      const h = today.getHours();
+      const mi = today.getMinutes();
+      iManagerMailer('I-Manager', 'a.joshuaudensi@gmail.com', 'Account accessed', `Your account has just been accessed ${d}-${m}-${y} ${h}:${mi}. If this was not you, please reply this mail`);
       res.redirect('/');
     });
   }).catch((error) => {
@@ -68,8 +76,16 @@ router.post('/register', (req, res) => {
       email: reqData.email,
       username: reqData.username,
       role: 'regular',
+      uid: user.uid,
     }).then(() => {
       user.sendEmailVerification().then(() => {
+        const today = new Date();
+        const d = today.getDate();
+        const m = today.getMonth()+1;
+        const y = today.getFullYear();
+        const h = today.getHours();
+        const mi = today.getMinutes();
+        iManagerMailer('I-Manager', 'support@i-manager.com', 'Account creation', `An account has just been created on I-Manager ${d}-${m}-${y} ${h}:${mi}. If this was not you, please reply this mail`);
         res.render('register', {
           title: `Registration success ${user.email}`,
           status: `Account registered. \n Verify this email address. ${reqData.email}`,
@@ -89,7 +105,7 @@ router.post('/register', (req, res) => {
   });
 });
 
-router.get('/logout', (req, res) => {
+router.get('/logout', isAuthenticated, (req, res) => {
   if (req.session) {
     req.session.destroy((error) => {
       if (error) {
