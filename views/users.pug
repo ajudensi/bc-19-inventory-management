@@ -3,7 +3,8 @@ include mixins/mixins
 
 block body
   +nav('I-Manager', 'dropdown_menu', '')
-    +nav_item( '/', 'active' ) Home	
+    +nav_item( '/', 'active' ) Home
+    +nav_item( '/users', 'active' ) Users	
     +nav_item_dropdown( '#' )( label='User' )
       if status == 'super'
         +nav_item( 'register-admin') Register admin

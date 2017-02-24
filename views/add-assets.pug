@@ -3,7 +3,8 @@ include mixins/mixins
 
 block body
   +nav('I-Manager', 'dropdown_menu', '')
-    +nav_item( '/', 'active' ) Home	
+    +nav_item( '/', 'active' ) Home
+    +nav_item( '/users', 'active' ) Users	
     +nav_item_dropdown( '#' )( label='User' )
       if status == 'super'
         +nav_item( 'register-admin') Register admin
@@ -24,7 +25,7 @@ block body
   .container.top-div
     .row
       p.text-center #{status}
-      div.col-md-offset-2.col-md-8
+      div.col-md-offset-3.col-md-6#div-form
         h3.text-center Add a new asset
         .row
           .col-md-12
@@ -36,43 +37,26 @@ block body
               span.help-block.text-danger 
               .input-group
                 span.input-group-addon
-                  i.fa.fa-user
-                input.form-control(type='text', name='description', required='required', placeholder='description')
+                  i.fa.fa-info
+                textarea.form-control(type='text', name='description', required='required', placeholder='description')
               span.help-block.text-danger 
               .input-group
                 span.input-group-addon
-                  i.fa.fa-user
+                  i.fa.fa-sort-numeric-asc
                 input.form-control(type='text', name='serialNumber', required='required', placeholder='serial number')
               span.help-block.text-danger
               .input-group
                 span.input-group-addon
-                  i.fa.fa-user
-                input.form-control(type='text', name='andelaSerialCode', placeholder='Andela serial code')
+                  i.fa.fa-sort-numeric-asc
+                input.form-control(type='text', name='andelaSerialCode', required='required', placeholder='Andela serial code')
               span.help-block.text-danger 
               .input-group
                 span.input-group-addon
-                  i.fa.fa-calender
-                input.form-control(type='date', name='date')
-              span.help-block.text-danger Date error
-              .col-md-4
-                button.btn.btn-lg.btn-primary.btn-block(type='submit') Login
-        .row
-          .col-md-6
-            br
-            .form-group
-              input#remember-me(type='checkbox', name='remember-me', autocomplete='off')
-              .btn-group
-                label.btn.btn-success(for='remember-me')
-                  span.glyphicon.glyphicon-plus
-                  span.glyphicon.glyphicon-minus
-                label.btn.btn-default.active(for='remember-me')
-                  | Remember me
-          .col-md-6
-            br
-            br
-            .form-group
-              p.forgotPassword
-                a(href='#') Forgot password?
+                  i.fa.fa-clock-o
+                input.form-control(type='date', require='required', name='date')
+              span.help-block.text-danger
+              .col-md-12
+                button.btn.btn-lg.btn-primary.btn-block(type='submit') Add asset
 
 
 block footer
