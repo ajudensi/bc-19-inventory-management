@@ -55,19 +55,4 @@ npm start
 
 ##### Technologies
 
-| Technology                                  | Link|
-|_____________________________________________|____________________________|
-|Node.js                                        [Nodejs]()
-|_____________________________________________|____________________________|
-|Express.js                                     [Express.js]()
-|_____________________________________________|____________________________|
-|firebase                                       [Firebase]()
-|_____________________________________________|____________________________|
-|Gulp.js                                        [Gulp](http://gulpjs.com/)
-|_____________________________________________|____________________________|
-|Nodemailer                                     [Nodemailer]()
-|_____________________________________________|____________________________|
-|BrowserSync                                    [BrowserSnc]()
-______________________________________________|____________________________|
-
 ## Contributing [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/ajudensi/bc-19-inventory-management/issues)
