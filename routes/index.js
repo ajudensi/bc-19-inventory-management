@@ -24,7 +24,7 @@ router.get('/', (req, res) => {
       authStatus = `${sess.role}`;
       isLoggedIn = true;
     }
-    res.render('index', { title: 'I-Manager', status: authStatus, isLoggedIn });
+    res.render('index', { title: 'I-Manager | Manage your assets seamlessly', status: authStatus, isLoggedIn });
   }());
 });
 
